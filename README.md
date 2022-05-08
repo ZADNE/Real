@@ -7,3 +7,5 @@ Features:
  * Endless procedurally generated world
  * GPU-accelerated particle simulation
  * Supports Windows and Linux
+
+See [preview video](https://youtu.be/XPsG03OpFHg).
