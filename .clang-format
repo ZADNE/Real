@@ -75,5 +75,21 @@ PenaltyBreakFirstLessLess: 10
 PenaltyBreakString: 10
 PenaltyBreakTemplateDeclaration: 10
 PenaltyReturnTypeOnItsOwnLine: 10
+IncludeIsMainRegex: '$'
+IncludeCategories:
+  - Regex:           '^<(vulkan|SDL2|glm|lodepng|ImGui)/'
+    Priority:        20
+    SortPriority:    20
+    CaseSensitive:   true
+  - Regex:           '^<RealEngine/'
+    Priority:        30
+    SortPriority:    30
+    CaseSensitive:   true
+  - Regex:           '^<RealWorld/'
+    Priority:        40
+    SortPriority:    40
+  - Regex:           '<[[:alnum:].]+>'
+    Priority:        10
+    SortPriority:    10
 
 ...
