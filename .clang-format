@@ -14,7 +14,7 @@ AllowShortCaseLabelsOnASingleLine: 'true'
 AllowShortFunctionsOnASingleLine: InlineOnly
 AllowShortLoopsOnASingleLine: 'true'
 AlwaysBreakAfterReturnType: None
-AlwaysBreakTemplateDeclarations: MultiLine
+AlwaysBreakTemplateDeclarations: Yes
 BinPackArguments: 'false'
 BinPackParameters: 'false'
 BreakBeforeBraces: Custom
@@ -68,16 +68,17 @@ SpacesInSquareBrackets: 'false'
 Standard: Cpp11
 TabWidth: '4'
 UseTab: Never
-PenaltyBreakAssignment: 10
-PenaltyBreakBeforeFirstCallParameter: 0
-PenaltyBreakComment: 10
-PenaltyBreakFirstLessLess: 10
-PenaltyBreakString: 10
-PenaltyBreakTemplateDeclaration: 10
-PenaltyReturnTypeOnItsOwnLine: 10
+PenaltyBreakAssignment: 100
+PenaltyBreakBeforeFirstCallParameter: 1
+PenaltyBreakComment: 100
+PenaltyBreakFirstLessLess: 100
+PenaltyBreakString: 100
+PenaltyBreakTemplateDeclaration: 100
+PenaltyReturnTypeOnItsOwnLine: 100
+PenaltyBreakOpenParenthesis: 1
 IncludeIsMainRegex: '$'
 IncludeCategories:
-  - Regex:           '^<(vulkan|SDL2|glm|lodepng|ImGui)/'
+  - Regex:           '^<(vulkan|vma|SDL2|glm|lodepng|ImGui)/'
     Priority:        20
     SortPriority:    20
     CaseSensitive:   true
@@ -88,7 +89,7 @@ IncludeCategories:
   - Regex:           '^<RealWorld/'
     Priority:        40
     SortPriority:    40
-  - Regex:           '<[[:alnum:].]+>'
+  - Regex:           '<[[:alnum:]._]+>'
     Priority:        10
     SortPriority:    10
 

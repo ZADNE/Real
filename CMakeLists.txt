@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.24)
 project(Real)
 
 set(CMAKE_VS_JUST_MY_CODE_DEBUGGING 1)
