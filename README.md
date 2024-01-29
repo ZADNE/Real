@@ -1,11 +1,5 @@
-# RealWorld
+# Real: Parent repo for [RealEngine](https://github.com/ZADNE/RealEngine) and [RealWorld](https://github.com/ZADNE/RealWorld)
 
-Parent repo for RealEngine library and RealWorld game.
+Sets up CMake and .clang-format.
 
-Features:
- * 2D tile-based game
- * Endless procedurally generated world
- * GPU-accelerated particle simulation
- * Supports Windows and Linux
-
-See [preview video](https://youtu.be/XPsG03OpFHg).
+The submodules do not refer the latest mains of the respective repos, they are to be overwritten manually.
