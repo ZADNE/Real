@@ -2,7 +2,7 @@
 
 This document explains code style rules of the [RealEngine](https://github.com/ZADNE/RealEngine) and some projects made with it (most notably [RealWorld](https://github.com/ZADNE/RealWorld)). The document mentions the most important rules.
 
-## Structure -- files and folders
+## Structure – files and folders
 
 Real naming convention follows [C++ Canonical Project Structure](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p1204r0.html) proposal. The only notable addition to the document is that folders are named strictly with underscore_case, while files are named with PascalCase. The following file extensions are used:
 
