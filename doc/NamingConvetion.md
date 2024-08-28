@@ -35,6 +35,8 @@ Identifiers of a variables consist of two parts: **scope identifier followed by 
 
 Both free-standing and member functions use **camelCase**.
 
+Getters and setters (where necessary) use implicit get and explicit set. So, e.g., property `m_color` is gotten via `color()` and set via `setColor(...)`.
+
 ### Example
 
 A code sample demonstrating some of the rules follows:
@@ -42,6 +44,7 @@ A code sample demonstrating some of the rules follows:
 class TileDrawer {
 public:
     void drawTiles(float deltaTime);
+    int tileCount() const { return m_tileCount; }
 private:
    static inline constexpr int k_tilesPerChunk{256};
    int m_tileCount{};
