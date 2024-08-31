@@ -4,5 +4,11 @@ project(Real)
 set(CMAKE_COMPILE_WARNING_AS_ERROR ON)
 set(CMAKE_VS_JUST_MY_CODE_DEBUGGING ON)
 
-add_subdirectory(RealEngine)
-add_subdirectory(RealWorld)
+# Add subdirectories with projects
+file(GLOB REAL_SUBDIRS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} LIST_DIRECTORIES true "*")
+foreach(item ${REAL_SUBDIRS})
+    if(IS_DIRECTORY ${item} AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${item}/CMakeLists.txt")
+        message("Real: adding subdirectory ${item}")
+        add_subdirectory(${item})
+    endif()
+endforeach()

@@ -1,5 +1,5 @@
-# Real: Parent repo for [RealEngine](https://github.com/ZADNE/RealEngine) and [RealWorld](https://github.com/ZADNE/RealWorld)
+# Real: Parent repo for Real projects
 
-Sets up CMake and .clang-format.
+This is a very small repo that sets up CMake, formatting and linting for Real projects. Real projects should be cloned as direct subdirectories.
 
-The submodules do not refer the latest mains of the respective repos, they are to be overwritten manually.
+This is used, for example, by [RealEngine](https://github.com/ZADNE/RealEngine) and [RealWorld](https://github.com/ZADNE/RealWorld).
