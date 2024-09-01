@@ -7,7 +7,7 @@ set(CMAKE_VS_JUST_MY_CODE_DEBUGGING ON)
 # Add subdirectories with projects
 file(GLOB REAL_SUBDIRS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} LIST_DIRECTORIES true "*")
 foreach(item ${REAL_SUBDIRS})
-    if(IS_DIRECTORY ${item} AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${item}/CMakeLists.txt")
+    if (IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/${item}" AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${item}/CMakeLists.txt")
         message("Real: adding subdirectory ${item}")
         add_subdirectory(${item})
     endif()
