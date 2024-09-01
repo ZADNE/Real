@@ -2,4 +2,4 @@
 
 This is a very small repo that sets up CMake, formatting and linting for Real projects. Real projects should be cloned as direct subdirectories.
 
-This is used, for example, by [RealEngine](https://github.com/ZADNE/RealEngine) and [RealWorld](https://github.com/ZADNE/RealWorld).
+This is used, for example, by [RealEngine](https://github.com/ZADNE/RealEngine) and [RealWorld](https://github.com/ZADNE/RealWorld) but the submodules do not point to the most up to date versions of the projects.

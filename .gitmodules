@@ -1,0 +1,6 @@
+[submodule "RealEngine"]
+	path = RealEngine
+	url = https://github.com/ZADNE/RealEngine
+[submodule "RealWorld"]
+	path = RealWorld
+	url = https://github.com/ZADNE/RealWorld
