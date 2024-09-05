@@ -1,8 +1,8 @@
 ---
-Checks:             '-*,cppcoreguidelines-*,-cppcoreguidelines-pro-type-union-access,-cppcoreguidelines-pro-type-reinterpret-cast,-cppcoreguidelines-pro-bounds-pointer-arithmetic'
+Checks:             '-*,cppcoreguidelines-*,-cppcoreguidelines-pro-type-union-access,-cppcoreguidelines-pro-type-reinterpret-cast,-cppcoreguidelines-pro-bounds-pointer-arithmetic,-cppcoreguidelines-pro-bounds-constant-array-index'
 CheckOptions:
   - key:            cppcoreguidelines-avoid-magic-numbers.IgnoredIntegerValues
-    value:          '0;1;3;255;65535'
+    value:          '0;1;3;255;65535;16777215;4294967295'
   - key:            cppcoreguidelines-avoid-magic-numbers.IgnorePowersOf2IntegerValues
     value:          '1'
   - key:            cppcoreguidelines-avoid-magic-numbers.IgnoredFloatingPointValues
