@@ -1,7 +1,7 @@
 # author     Dubsky Tomas
 
-include("cmake/RealProjects/CollateShaders.cmake")
-include("cmake/RealProjects/GenerateCppFiles.cmake")
+include("cmake/RealProject/CollateShaders.cmake")
+include("cmake/RealProject/GenerateCppFiles.cmake")
 
 # Do not use directly, use add_real_library or add_real_executable
 macro(_add_real_target target)
@@ -38,7 +38,7 @@ function(real_target_init_file_sets target)
         realproject_base_dir_rel "${ARG_BASE_DIR}"
         realproject_base_dir_abs "${source_dir}/${ARG_BASE_DIR}"
     )
-    target_sources(${target} PUBLIC FILE_SET "realproject_public_headers"
+    target_sources(${target} PUBLIC FILE_SET realproject_public_headers
         TYPE HEADERS BASE_DIRS "${ARG_BASE_DIR}")
 endfunction()
 
@@ -56,7 +56,7 @@ function(real_target_sources target)
     foreach (source IN LISTS ARG_PUBLIC)
         get_filename_component(source_ext ${source} LAST_EXT)
         if ("${source_ext}" STREQUAL ".hpp") # Public header
-            target_sources(${target} PUBLIC FILE_SET realproject_public_headers ${source})
+            target_sources(${target} PUBLIC FILE_SET realproject_public_headers FILES ${source})
         elseif("${source_ext}" STREQUAL ".cpp") # 'Public' source will be private
             target_sources(${target} PRIVATE ${source})
         else() # 'Public' shader will be private

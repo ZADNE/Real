@@ -63,6 +63,7 @@ function(RealProject_CollateShaders target)
     # Include base subdirectory in binary dir
     get_target_property(base_dir ${target} realproject_base_dir_rel)
     target_include_directories(${target}
-        PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/${base_dir}
+        PUBLIC
+            $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/${base_dir}>
     )
 endfunction()
