@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.24)
 project(Real)
 
+include("cmake/RealProjects/RealProject.cmake")
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/sdl2)
+include("cmake/IncludeSDL2WithPrefix.cmake")
+
 set(CMAKE_COMPILE_WARNING_AS_ERROR ON)
 set(CMAKE_VS_JUST_MY_CODE_DEBUGGING ON)
 
