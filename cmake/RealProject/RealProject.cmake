@@ -8,7 +8,7 @@ macro(_add_real_target target)
     get_target_property(source_dir ${target} SOURCE_DIR)
     set_target_properties(${target} PROPERTIES
         realproject_base_dir_rel        "."
-        realproject_base_dir_abs        "${target}"
+        realproject_base_dir_abs        "${source_dir}"
         realproject_glsl_standard       "460"
         realproject_shader_sources_rel  ""
         realproject_shader_sources_abs  ""
@@ -55,11 +55,14 @@ function(real_target_sources target)
     # Process public files
     foreach (source IN LISTS ARG_PUBLIC)
         get_filename_component(source_ext ${source} LAST_EXT)
-        if ("${source_ext}" STREQUAL ".hpp") # Public header
+        if ("${source_ext}" STREQUAL ".hpp" OR "${source_ext}" STREQUAL ".h")
+             # Public header
             target_sources(${target} PUBLIC FILE_SET realproject_public_headers FILES ${source})
-        elseif("${source_ext}" STREQUAL ".cpp") # 'Public' source will be private
+        elseif("${source_ext}" STREQUAL ".cpp" OR "${source_ext}" STREQUAL ".c")
+            # 'Public' source (will be private)
             target_sources(${target} PRIVATE ${source})
-        else() # 'Public' shader will be private
+        else()
+            # 'Public' shader (will be private)
             target_sources(${target} PRIVATE ${source})
             list(APPEND shaders ${source})
             set_property(TARGET ${target}
@@ -72,11 +75,14 @@ function(real_target_sources target)
     # Process private files
     foreach (source IN LISTS ARG_PRIVATE)
         get_filename_component(source_ext ${source} LAST_EXT)
-        if ("${source_ext}" STREQUAL ".hpp") # Private header
+        if ("${source_ext}" STREQUAL ".hpp" OR "${source_ext}" STREQUAL ".h")
+            # Private header
             target_sources(${target} PRIVATE ${source})
-        elseif("${source_ext}" STREQUAL ".cpp") # Private source
+        elseif("${source_ext}" STREQUAL ".cpp" OR "${source_ext}" STREQUAL ".c")
+            # Private source
             target_sources(${target} PRIVATE ${source})
-        else() # Private shader
+        else()
+            # Private shader
             target_sources(${target} PRIVATE ${source})
             list(APPEND shaders ${source})
             set_property(TARGET ${target}
