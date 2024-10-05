@@ -6,6 +6,6 @@ CheckOptions:
   - key:            cppcoreguidelines-avoid-magic-numbers.IgnorePowersOf2IntegerValues
     value:          '1'
   - key:            cppcoreguidelines-avoid-magic-numbers.IgnoredFloatingPointValues
-    value:          '0;0.5;1;2'
+    value:          '0;0.125;0.25;0.375;0.5;0.625;0.75;0.875;1;1.5;2;3;4;8;16;32;64;128;256;512;1024;2048;4096;8192;16384;32768;65536'
 ...
 
