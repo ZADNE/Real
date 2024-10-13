@@ -1,0 +1,17 @@
+# author    Dubsky Tomas
+
+function(_does_target_have_shaders target)
+    get_target_property(target_type ${target} TYPE)
+    get_target_property(shader_sources_rel ${target} realproject_glsl_sources_rel)
+    list(LENGTH shader_sources_rel shader_count)
+    if(${target_type} STREQUAL "INTERFACE_LIBRARY")
+        if(${shader_count} GREATER 0)
+            message(FATAL_ERROR "Target ${target}: Interface libraries cannot have shaders")
+        endif()
+        set(target_has_shaders NO PARENT_SCOPE)
+    elseif(${shader_count} EQUAL 0)
+        set(target_has_shaders NO PARENT_SCOPE)
+    else()
+        set(target_has_shaders YES PARENT_SCOPE)
+    endif()
+endfunction()

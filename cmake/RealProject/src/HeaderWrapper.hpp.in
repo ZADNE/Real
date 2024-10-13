@@ -1,0 +1,11 @@
+// Automatically generated file by RealProject
+#pragma once
+
+@cpp_namespace_start@
+#include <@header_rel@>
+// Undefine macros used to turn GLSL into C++
+#undef layout
+#undef restrict
+#undef buffer
+#undef uniform
+@cpp_namespace_end@
