@@ -3,9 +3,6 @@
 
 @cpp_namespace_start@
 #include <@header_rel@>
-// Undefine macros used to turn GLSL into C++
-#undef layout
-#undef restrict
-#undef buffer
-#undef uniform
+
+#include <RealShaders/GlslIntegration.hpp>
 @cpp_namespace_end@

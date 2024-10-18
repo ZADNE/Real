@@ -13,14 +13,10 @@ function(_generate_cpp_wrapper_for_stage target shader_rel)
     set(cpp_abs "${CMAKE_CURRENT_BINARY_DIR}/${base_dir}/${cpp_rel}")
 
     # Generate files
-    configure_file(
-        "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/src/ShaderWrapper.hpp.in" ${hpp_abs} @ONLY
-    )
-    configure_file(
-        "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/src/ShaderWrapper.cpp.in" ${cpp_abs} @ONLY
-    )
+    configure_file("${template_dir}/ShaderWrapper.hpp.in" ${hpp_abs} @ONLY)
+    configure_file("${template_dir}/ShaderWrapper.cpp.in" ${cpp_abs} @ONLY)
 
-    # Set the generated files as sources of target
+    # Set the generated files as sources of the target
     target_sources(${target} PRIVATE ${hpp_abs} ${cpp_abs})
 endfunction()
 
@@ -32,12 +28,10 @@ function(_generate_cpp_wrapper_to_expose_header target header_rel)
     set(hpp_rel "${header_rel_dir}/${header_}.hpp")
     set(hpp_abs "${CMAKE_CURRENT_BINARY_DIR}/${base_dir}/${hpp_rel}")
 
-    # Generate files
-    configure_file(
-        "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/src/HeaderWrapper.hpp.in" ${hpp_abs} @ONLY
-    )
+    # Generate the file
+    configure_file("${template_dir}/HeaderWrapper.hpp.in" ${hpp_abs} @ONLY)
 
-    # Set the generated files as sources of target
+    # Set the generated file as a source of the target
     target_sources(${target} PRIVATE ${hpp_abs})
 endfunction()
 
@@ -51,10 +45,10 @@ function(_generate_cpp_wrappers_for_shaders target)
     # Load target properties and prepare variables
     get_target_property(base_dir ${target} realproject_base_dir_rel)
     get_target_property(shader_sources_rel ${target} realproject_glsl_sources_rel)
-    get_target_property(exposed_headers_rel ${target} realproject_exposed_glsl_headers_rel)
+    get_target_property(exposed_headers_rel ${target} realproject_glpp_headers_rel)
     get_property(cpp_namespace TARGET ${target} PROPERTY realproject_shader_cxx_namespace)
 
-    # Prepare reusable string snippets
+    # Prepare reusable variables
     if("${cpp_namespace}" STREQUAL "")
         set(cpp_namespace_start "")
         set(cpp_namespace_end "")
@@ -62,6 +56,7 @@ function(_generate_cpp_wrappers_for_shaders target)
         set(cpp_namespace_start "namespace ${cpp_namespace} {\n")
         set(cpp_namespace_end "\n} // namespace ${cpp_namespace}")
     endif()
+    set(template_dir "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/templates")
     
     # Generate stage wrappers
     set(shader_dirs)
@@ -93,9 +88,7 @@ function(_generate_cpp_wrappers_for_shaders target)
         # Generate the file
         list(JOIN shader_declarations "\n" shader_declarations)
         set(hpp_abs "${CMAKE_CURRENT_BINARY_DIR}/${base_dir}/${dir}/AllShaders.hpp")
-        configure_file(
-            "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/src/AllShaders.hpp.in" ${hpp_abs} @ONLY
-        )
+        configure_file("${template_dir}/AllShaders.hpp.in" ${hpp_abs} @ONLY)
         target_sources(${target} PRIVATE ${hpp_abs})
     endforeach()
 
@@ -103,6 +96,12 @@ function(_generate_cpp_wrappers_for_shaders target)
     foreach(header_rel IN LISTS exposed_headers_rel)
         _generate_cpp_wrapper_to_expose_header(${target} ${header_rel})
     endforeach()
+    list(LENGTH exposed_headers_rel exposed_header_count)
+    if(${exposed_header_count} GREATER 0)
+        target_include_directories(${target}
+            PUBLIC "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/include"
+        )
+    endif()
 
     # Set include path so that the generated code can be included
     target_include_directories(${target}

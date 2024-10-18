@@ -2,7 +2,7 @@
 
 include("cmake/RealProject/Utility.cmake")
 
-function(_collate_shaders target)
+function(_add_shader_target target)
     # Check if this target has shaders
     _does_target_have_shaders(${target})
     if(NOT ${target_has_shaders})
