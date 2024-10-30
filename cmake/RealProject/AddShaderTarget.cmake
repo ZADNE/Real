@@ -46,11 +46,9 @@ function(_add_shader_target target)
                 OUTPUT "${shader_bin_abs}_vk13" "${shader_bin_abs}_vk13.txt"
                 COMMAND ${Vulkan_GLSLC_EXECUTABLE} -MD -mfmt=c -MF ${shader_dep_abs} ${shader_source_abs}
                         -o "${shader_bin_abs}_vk13" --target-env=vulkan1.3 ${glslc_flags}
-                        "-I${CMAKE_CURRENT_FUNCTION_LIST_DIR}/include"
                         "$<LIST:TRANSFORM,${target_includes},PREPEND,-I>"
                 COMMAND ${Vulkan_GLSLC_EXECUTABLE} -S ${shader_source_abs}
                         -o "${shader_bin_abs}_vk13.txt" --target-env=vulkan1.3 ${glslc_flags}
-                        "-I${CMAKE_CURRENT_FUNCTION_LIST_DIR}/include"
                         "$<LIST:TRANSFORM,${target_includes},PREPEND,-I>"
                 DEPENDS ${shader_source_abs}
                 BYPRODUCTS ${shader_dep_abs}

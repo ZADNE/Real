@@ -24,15 +24,11 @@ function(_generate_cpp_wrapper_to_expose_header target header_rel)
     # Compose paths
     get_filename_component(header ${header_rel} NAME)
     get_filename_component(header_rel_dir ${header_rel} DIRECTORY)
-    string(REPLACE "." "_" header_ ${header})
-    set(hpp_rel "${header_rel_dir}/${header_}.hpp")
+    set(hpp_rel "${header_rel_dir}/${header}.hpp")
     set(hpp_abs "${CMAKE_CURRENT_BINARY_DIR}/${base_dir}/${hpp_rel}")
 
     # Generate the file
     configure_file("${template_dir}/HeaderWrapper.hpp.in" ${hpp_abs} @ONLY)
-
-    # Set the generated file as a source of the target
-    target_sources(${target} PRIVATE ${hpp_abs})
 endfunction()
 
 function(_generate_cpp_wrappers_for_shaders target)
@@ -45,7 +41,7 @@ function(_generate_cpp_wrappers_for_shaders target)
     # Load target properties and prepare variables
     get_target_property(base_dir ${target} realproject_base_dir_rel)
     get_target_property(shader_sources_rel ${target} realproject_glsl_sources_rel)
-    get_target_property(exposed_headers_rel ${target} realproject_glpp_headers_rel)
+    get_target_property(shader_headers_rel ${target} realproject_glsl_headers_rel)
     get_property(cpp_namespace TARGET ${target} PROPERTY realproject_shader_cxx_namespace)
 
     # Prepare reusable variables
@@ -93,10 +89,10 @@ function(_generate_cpp_wrappers_for_shaders target)
     endforeach()
 
     # Expose shader headers
-    foreach(header_rel IN LISTS exposed_headers_rel)
+    foreach(header_rel IN LISTS shader_headers_rel)
         _generate_cpp_wrapper_to_expose_header(${target} ${header_rel})
     endforeach()
-    list(LENGTH exposed_headers_rel exposed_header_count)
+    list(LENGTH shader_headers_rel exposed_header_count)
     if(${exposed_header_count} GREATER 0)
         target_include_directories(${target}
             PUBLIC "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/include"

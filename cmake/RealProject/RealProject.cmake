@@ -16,11 +16,6 @@ set(REALPROJECT_GLSL_HEADER_EXTENSIONS
     ".glsl"
     CACHE STRING "List of file extensions interpreted as GLSL header files"
 )
-set(REALPROJECT_GLPP_HEADER_EXTENSIONS
-    ".glpp"
-    CACHE STRING "List of file extensions interpreted as GLSL header files"
-                 " that should be exposed to C++"
-)
 set(REALPROJECT_GLSL_STAGE_EXTENSIONS
     ".vert;.tesc;.tese;.geom;.frag;.comp"
     CACHE STRING "List of file extensions interpreted as GLSL stage files"
@@ -33,7 +28,7 @@ macro(_add_real_target target)
         realproject_base_dir_rel        "."
         realproject_base_dir_abs        "${source_dir}"
         realproject_glsl_standard       "460"
-        realproject_glpp_headers_rel    ""
+        realproject_glsl_headers_rel    ""
         realproject_glsl_sources_rel    ""
     )
     cmake_language(DEFER CALL _generate_cpp_wrappers_for_shaders ${target})
@@ -83,36 +78,19 @@ function(_incorporate_scoped_sources target path_rel header_scope)
             endif()
         elseif(${source_ext} IN_LIST REALPROJECT_SOURCE_EXTENSIONS)
             target_sources(${target} PRIVATE ${source})
-        elseif(${source_ext} IN_LIST REALPROJECT_GLSL_HEADER_EXTENSIONS OR
-               ${source_ext} IN_LIST REALPROJECT_GLSL_STAGE_EXTENSIONS)
+        elseif(${source_ext} IN_LIST REALPROJECT_GLSL_HEADER_EXTENSIONS)
             set_property(TARGET ${target}
-                APPEND PROPERTY realproject_glsl_sources_rel
+                APPEND PROPERTY realproject_glsl_headers_rel
                 "${path_rel}/${source}"
             )
-        elseif(${source_ext} IN_LIST REALPROJECT_GLPP_HEADER_EXTENSIONS)
+        elseif(${source_ext} IN_LIST REALPROJECT_GLSL_STAGE_EXTENSIONS)
             set_property(TARGET ${target}
-                APPEND PROPERTY realproject_glpp_headers_rel
+                APPEND PROPERTY realproject_glsl_sources_rel
                 "${path_rel}/${source}"
             )
         else()
             message(FATAL_ERROR
                 "Target ${target}: ${path_rel}/${source} has unknown file extension."
-            )
-        endif()
-    endforeach()
-
-    # GLSL headers exposed to C++
-    foreach(source IN LISTS ARG_EXPOSE_TO_CPP)
-        get_filename_component(source_ext ${source} LAST_EXT)
-        if(${source_ext} IN_LIST REALPROJECT_GLSL_HEADER_EXTENSIONS)
-            set_property(TARGET ${target}
-                APPEND PROPERTY realproject_exposed_glsl_headers_rel
-                "${path_rel}/${source}"
-            )
-        else()
-            message(FATAL_ERROR
-                "Target ${target}: ${path_rel}/${source} is not recognized "
-                " as a GLSL header and thus cannot be exposed to C++."
             )
         endif()
     endforeach()

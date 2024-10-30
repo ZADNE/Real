@@ -1,7 +1,6 @@
 /*!
  *  @author     Dubsky Tomas
  */
-#pragma once
 
 // xyzw swizzles
 #define xx xx()

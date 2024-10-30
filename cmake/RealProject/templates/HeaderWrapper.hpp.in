@@ -2,7 +2,9 @@
 #pragma once
 
 @cpp_namespace_start@
+#include <RealShaders/GlslIntegrationBegin.hpp>
+
 #include <@header_rel@>
 
-#include <RealShaders/GlslIntegration.hpp>
+#include <RealShaders/GlslIntegrationEnd.hpp>
 @cpp_namespace_end@
