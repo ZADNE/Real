@@ -4,7 +4,12 @@
 
 namespace re {
 
-// All vecs aligned to 16 (for std 140 arrays)
+#include <glm/gtc/vec1.hpp>
+#include <glm/vec2.hpp>
+#include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
+
+// All vecs aligned to 16 bytes (for std 140 arrays)
 struct alignas(16) bvec1_a16: public glm::bvec1 {};
 struct alignas(16) bvec2_a16: public glm::bvec2 {};
 struct alignas(16) bvec3_a16: public glm::bvec3 {};
@@ -53,18 +58,5 @@ struct alignas(16) dvec1_a16: public glm::dvec1 {};
 struct alignas(16) dvec2_a16: public glm::dvec2 {};
 struct alignas(16) dvec3_a16: public glm::dvec3 {};
 struct alignas(16) dvec4_a16: public glm::dvec4 {};
-// *vec3s aligned as *vec4s
-struct alignas(sizeof(glm::bvec4)) bvec3_av4: public glm::bvec3 {};
-struct alignas(sizeof(glm::i8vec4)) i8vec3_av4: public glm::i8vec3 {};
-struct alignas(sizeof(glm::u8vec4)) u8vec3_av4: public glm::u8vec3 {};
-struct alignas(sizeof(glm::i16vec4)) i16vec3_av4: public glm::i16vec3 {};
-struct alignas(sizeof(glm::u16vec4)) u16vec3_av4: public glm::u16vec3 {};
-struct alignas(sizeof(glm::i32vec4)) i32vec3_av4: public glm::i32vec3 {};
-struct alignas(sizeof(glm::u32vec4)) u32vec3_av4: public glm::u32vec3 {};
-struct alignas(sizeof(glm::i64vec4)) i64vec3_av4: public glm::i64vec3 {};
-struct alignas(sizeof(glm::u64vec4)) u64vec3_av4: public glm::u64vec3 {};
-struct alignas(sizeof(glm::u16vec4)) u16vec3_av4: public glm::u16vec3 {};
-struct alignas(sizeof(glm::vec4)) vec3_av4: public glm::vec3 {};
-struct alignas(sizeof(glm::dvec4)) dvec3_av4: public glm::dvec3 {};
 
 } // namespace re
