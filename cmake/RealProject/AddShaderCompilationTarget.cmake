@@ -2,7 +2,7 @@
 
 include("cmake/RealProject/Utility.cmake")
 
-function(_add_shader_target target)
+function(_add_shader_compilation_target target)
     # Check if this target has shaders
     _does_target_have_shaders(${target})
     if(NOT ${target_has_shaders})
@@ -13,6 +13,9 @@ function(_add_shader_target target)
     get_target_property(base_dir ${target} realproject_base_dir_rel)
     get_target_property(shader_sources_rel ${target} realproject_glsl_sources_rel)
     get_target_property(target_includes ${target} INCLUDE_DIRECTORIES)
+    if (NOT shader_sources_rel)
+        return()
+    endif()
 
     # Determine shader compilation flags
     if(${CMAKE_BUILD_TYPE} STREQUAL "Release")
@@ -32,7 +35,7 @@ function(_add_shader_target target)
     get_target_property(glsl_standard ${target} realproject_glsl_standard)
     list(APPEND glslc_flags "-std=${glsl_standard}")
 
-    # Collate the shaders
+    # Create commands to compile the shaders
     foreach(shader_source_rel IN LISTS shader_sources_rel)
         get_filename_component(shader_ext ${shader_source_rel} LAST_EXT)
         if (${shader_ext} IN_LIST REALPROJECT_GLSL_STAGE_EXTENSIONS)
