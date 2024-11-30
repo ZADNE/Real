@@ -1,7 +1,6 @@
 # author     Dubsky Tomas
 
 include("cmake/RealProject/AddShaderCompilationTarget.cmake")
-include("cmake/RealProject/AddShaderReflectionTarget.cmake")
 include("cmake/RealProject/GenerateCppFiles.cmake")
 
 # Cache variables
@@ -30,11 +29,9 @@ macro(_add_real_target target)
         realproject_base_dir_abs        "${source_dir}"
         realproject_glsl_standard       "460"
         realproject_glsl_headers_rel    ""
-        realproject_glsl_ib_headers_rel ""
         realproject_glsl_sources_rel    ""
     )
     cmake_language(DEFER CALL _generate_cpp_wrappers_for_shaders ${target})
-    cmake_language(DEFER CALL _add_shader_reflection_target ${target})
     cmake_language(DEFER CALL _add_shader_compilation_target ${target})
 endmacro()
 
@@ -82,18 +79,10 @@ function(_incorporate_scoped_sources target path_rel header_scope)
         elseif(${source_ext} IN_LIST REALPROJECT_SOURCE_EXTENSIONS)
             target_sources(${target} PRIVATE ${source})
         elseif(${source_ext} IN_LIST REALPROJECT_GLSL_HEADER_EXTENSIONS)
-            get_filename_component(header_name ${source} NAME_WE)
-            if(header_name MATCHES "UB$|SB$|PC$")
-                set_property(TARGET ${target}
-                    APPEND PROPERTY realproject_glsl_ib_headers_rel
-                    "${path_rel}/${source}"
-                )
-            else()
-                set_property(TARGET ${target}
-                    APPEND PROPERTY realproject_glsl_headers_rel
-                    "${path_rel}/${source}"
-                )
-            endif()
+            set_property(TARGET ${target}
+                APPEND PROPERTY realproject_glsl_headers_rel
+                "${path_rel}/${source}"
+            )
         elseif(${source_ext} IN_LIST REALPROJECT_GLSL_STAGE_EXTENSIONS)
             set_property(TARGET ${target}
                 APPEND PROPERTY realproject_glsl_sources_rel
