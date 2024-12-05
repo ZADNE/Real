@@ -25,4 +25,10 @@
 // End scope for variable-length arrays
 #pragma warning(pop)
 
+#ifdef RE_CPP_INTEGRATED
+#    undef RE_GLSL_ONLY
+#    undef RE_CPP_ONLY
+#    undef RE_CPP_INTEGRATED
+#endif
+
 #include <RealShaders/UndefSwizzlingMacros.hpp>

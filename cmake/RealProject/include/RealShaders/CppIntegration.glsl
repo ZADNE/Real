@@ -1,15 +1,22 @@
 /*!
  *  @author     Dubsky Tomas
  */
-#ifndef RE_CPP_INTEGRATION_GLSL
-#define RE_CPP_INTEGRATION_GLSL
 
-#ifdef VULKAN
-#    extension GL_EXT_scalar_block_layout : require
+#if !defined(RE_CPP_INTEGRATED)
+#    define RE_CPP_INTEGRATED
 
-#    define RE_SHADER_INSTANCE(identifier) identifier
-#else
-#    define RE_SHADER_INSTANCE(identifier)
+#    if defined(VULKAN)
+#        extension GL_EXT_scalar_block_layout : require
+
+#        define RE_GLSL_ONLY(tokens) tokens
+#        define RE_CPP_ONLY(tokens)
+
+         // 'Introduce' keywords from C++
+#        define constexpr const
+#        define inline
+#    else
+#        define RE_GLSL_ONLY(tokens)
+#        define RE_CPP_ONLY(tokens) tokens
+#    endif
 #endif
 
-#endif // !RE_CPP_INTEGRATION_GLSL
