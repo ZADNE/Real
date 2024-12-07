@@ -24,7 +24,8 @@ function(_generate_cpp_wrapper_to_expose_header target header_rel)
     # Compose paths
     get_filename_component(header ${header_rel} NAME)
     get_filename_component(header_rel_dir ${header_rel} DIRECTORY)
-    set(hpp_rel "${header_rel_dir}/${header}.hpp")
+    string(REPLACE "." "_" header_ ${header})
+    set(hpp_rel "${header_rel_dir}/${header_}.hpp")
     set(hpp_abs "${CMAKE_CURRENT_BINARY_DIR}/${base_dir}/${hpp_rel}")
 
     # Generate the file
