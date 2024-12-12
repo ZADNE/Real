@@ -53,7 +53,7 @@ endmacro()
 function(real_target_init_file_sets target)
     set(multi_value_args BASE_DIR)
     cmake_parse_arguments(ARG "" "" "${multi_value_args}" ${ARGN})
-    
+
     get_target_property(source_dir ${target} SOURCE_DIR)
     set_target_properties(${target} PROPERTIES
         realproject_base_dir_rel "${ARG_BASE_DIR}"
@@ -64,7 +64,7 @@ function(real_target_init_file_sets target)
     )
 endfunction()
 
-# Nested function to process 
+# Based on file extensions, add source files into the target
 function(_incorporate_scoped_sources target path_rel header_scope)
     foreach(source IN LISTS ARGN)
         get_filename_component(source_ext ${source} LAST_EXT)
@@ -97,6 +97,8 @@ function(_incorporate_scoped_sources target path_rel header_scope)
 endfunction()
 
 # Adds C++ source files (headers, source, shaders) files to a target
+# C++ headers maintain the scope (PUBLIC, PRIVATE)
+# C++ sources and GLSL headers/stages are always private
 function(real_target_sources target)
     # Sanity check
     get_property(is_real_target TARGET ${target} PROPERTY realproject_base_dir_rel SET)
