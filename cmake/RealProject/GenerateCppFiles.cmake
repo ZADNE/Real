@@ -101,7 +101,7 @@ function(_generate_cpp_wrappers_for_shaders target)
     endif()
 
     # Set include path so that the generated code can be included
-    target_include_directories(${target}
+    target_include_directories(${target} BEFORE
         PUBLIC
             $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/${base_dir}>
     )
