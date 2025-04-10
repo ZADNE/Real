@@ -15,7 +15,7 @@ Real/
 ├─ CMakeLists.txt
 ```
 
- The top level `CMakeLists.txt` and all contents of `cmake/` must stay intact. Real also contains (this) documentation and RealEngine-default configuration files for various tools but these are not strictly necessary. There can be multiple RealProjects next to each other.
+The top level `CMakeLists.txt` and all contents of `cmake/` must stay intact. Real also contains (this) documentation and RealEngine-default configuration files for various tools but these are not strictly necessary. There can be multiple RealProjects next to each other.
 
 ### CMake setup
 

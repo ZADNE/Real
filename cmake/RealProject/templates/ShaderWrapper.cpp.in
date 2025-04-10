@@ -13,7 +13,9 @@
 #endif // 0 (navigation section)
 
 const re::ShaderSource @shader_@{
-    .vk13 =
+    // SPIR-V
     #include <@shader_rel@.spv_vk13>
+    , // Hot reload path (used in debug builds only)
+    "@shader_abs@"
 };
 @cpp_namespace_end@

@@ -11,6 +11,7 @@ function(_generate_cpp_wrapper_for_stage target shader_rel)
     set(cpp_rel "${shader_rel_dir}/${shader_}.cpp")
     set(hpp_abs "${CMAKE_CURRENT_BINARY_DIR}/${base_dir}/${hpp_rel}")
     set(cpp_abs "${CMAKE_CURRENT_BINARY_DIR}/${base_dir}/${cpp_rel}")
+    set(shader_abs "${CMAKE_CURRENT_SOURCE_DIR}/${base_dir}/${shader_rel}")
 
     # Generate files
     configure_file("${template_dir}/ShaderWrapper.hpp.in" ${hpp_abs} @ONLY)
