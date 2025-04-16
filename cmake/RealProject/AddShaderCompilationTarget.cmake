@@ -40,18 +40,28 @@ function(_add_shader_compilation_target target)
         get_filename_component(shader_ext ${shader_source_rel} LAST_EXT)
         if (${shader_ext} IN_LIST REALPROJECT_GLSL_STAGE_EXTENSIONS)
             set(shader_source_abs "${CMAKE_CURRENT_SOURCE_DIR}/${base_dir}/${shader_source_rel}")
-            set(shader_bin_abs "${CMAKE_CURRENT_BINARY_DIR}/${base_dir}/${shader_source_rel}.spv")
-            list(APPEND shader_bins_abs "${shader_bin_abs}_vk13")
+            set(shader_out_base_abs "${CMAKE_CURRENT_BINARY_DIR}/${base_dir}/${shader_source_rel}")
+            set(shader_c_abs "${shader_out_base_abs}.spv.c")    # C representation
+            set(shader_dep_abs "${shader_out_base_abs}.d")      # Dependency file
+            set(shader_txt_abs "${shader_out_base_abs}.spv.txt")# Text disassembly
+            set(shader_bin_abs "${shader_out_base_abs}.spv.bin")# Binary representation
+            list(APPEND shader_bins_abs ${shader_c_abs})
             set(shader_dep_abs "${CMAKE_CURRENT_BINARY_DIR}/${base_dir}/${shader_source_rel}.d")
-            get_filename_component(shader_bin_dir_abs ${shader_bin_abs} DIRECTORY)
+            get_filename_component(shader_bin_dir_abs ${shader_c_abs} DIRECTORY)
             file(MAKE_DIRECTORY ${shader_bin_dir_abs})
             add_custom_command(
-                OUTPUT "${shader_bin_abs}_vk13" "${shader_bin_abs}_vk13.txt"
-                COMMAND ${Vulkan_GLSLC_EXECUTABLE} -MD -mfmt=c -MF ${shader_dep_abs} ${shader_source_abs}
-                        -o "${shader_bin_abs}_vk13" --target-env=vulkan1.3 ${glslc_flags}
+                OUTPUT ${shader_c_abs} ${shader_txt_abs} ${shader_bin_abs}
+                COMMAND ${Vulkan_GLSLC_EXECUTABLE}  # C + dependency
+                        -MD -mfmt=c -MF ${shader_dep_abs} ${shader_source_abs}
+                        -o ${shader_c_abs} --target-env=vulkan1.3 ${glslc_flags}
                         "$<LIST:TRANSFORM,${target_includes},PREPEND,-I>"
-                COMMAND ${Vulkan_GLSLC_EXECUTABLE} -S ${shader_source_abs}
-                        -o "${shader_bin_abs}_vk13.txt" --target-env=vulkan1.3 ${glslc_flags}
+                COMMAND ${Vulkan_GLSLC_EXECUTABLE}  # Disassembly
+                        -S ${shader_source_abs}
+                        -o ${shader_txt_abs} --target-env=vulkan1.3 ${glslc_flags}
+                        "$<LIST:TRANSFORM,${target_includes},PREPEND,-I>"
+                COMMAND ${Vulkan_GLSLC_EXECUTABLE}  # Binary
+                        ${shader_source_abs}
+                        -o ${shader_bin_abs} --target-env=vulkan1.3 ${glslc_flags}
                         "$<LIST:TRANSFORM,${target_includes},PREPEND,-I>"
                 DEPENDS ${shader_source_abs}
                 BYPRODUCTS ${shader_dep_abs}

@@ -2,6 +2,15 @@
 
 include("cmake/RealProject/Utility.cmake")
 
+function(generate_configured_file in_file out_file)
+    file(READ ${in_file} contents)
+    string(CONFIGURE "${contents}" contents @ONLY)
+    file(GENERATE
+        OUTPUT ${out_file}
+        CONTENT "${contents}"
+    )
+endfunction()
+
 function(_generate_cpp_wrapper_for_stage target shader_rel)
     # Compose paths
     get_filename_component(shader ${shader_rel} NAME)
@@ -11,11 +20,12 @@ function(_generate_cpp_wrapper_for_stage target shader_rel)
     set(cpp_rel "${shader_rel_dir}/${shader_}.cpp")
     set(hpp_abs "${CMAKE_CURRENT_BINARY_DIR}/${base_dir}/${hpp_rel}")
     set(cpp_abs "${CMAKE_CURRENT_BINARY_DIR}/${base_dir}/${cpp_rel}")
-    set(shader_abs "${CMAKE_CURRENT_SOURCE_DIR}/${base_dir}/${shader_rel}")
+    set(bin_abs
+        "$<$<CONFIG:Debug>:${CMAKE_CURRENT_BINARY_DIR}/${base_dir}/${shader_rel}.spv.bin>")
 
     # Generate files
-    configure_file("${template_dir}/ShaderWrapper.hpp.in" ${hpp_abs} @ONLY)
-    configure_file("${template_dir}/ShaderWrapper.cpp.in" ${cpp_abs} @ONLY)
+    generate_configured_file("${template_dir}/ShaderWrapper.hpp.in" ${hpp_abs} @ONLY)
+    generate_configured_file("${template_dir}/ShaderWrapper.cpp.in" ${cpp_abs} @ONLY)
 
     # Set the generated files as sources of the target
     target_sources(${target} PRIVATE ${hpp_abs} ${cpp_abs})
