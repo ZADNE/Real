@@ -16,7 +16,7 @@ function(_add_shader_compilation_target target)
     if (NOT shader_sources_rel)
         return()
     endif()
-    _parse_shader_constants()
+    _load_shader_naming_constants()
 
     # Determine shader compilation flags
     if(${CMAKE_BUILD_TYPE} STREQUAL "Release")

@@ -2,11 +2,11 @@
  *  @author    Automatically generated file by RealProject
  */
 #pragma once
-#include <RealEngine/program/HotRealodInfo.hpp>
+#include <RealEngine/program/HotRealoadInfo.hpp>
 
 namespace re {
 
-constexpr HotReloadInfo k_hotReloadInfo {
+constexpr HotReloadInitInfo k_hotReloadInitInfo{
     .cmakePath       = "@cmake_command@",
     .targetName      = "@target_name@",
     .targetSourceDir = "@target_source_dir@",

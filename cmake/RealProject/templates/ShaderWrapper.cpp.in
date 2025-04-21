@@ -9,14 +9,14 @@
 // Source file:
    #include <@shader_rel@>
 // Dependency file:
-   #include <@shader_rel@.d>
+   #include <@shader_rel@.@shader_dep_ext@>
 // Disassembly file:
-   #include <@shader_rel@.spv.txt>
+   #include <@shader_rel@.@shader_txt_ext@>
 #endif // 0 (navigation section)
 
 const re::ShaderSource @shader_@{
     // SPIR-V used for normal build
-    #include <@shader_rel@.spv.c>
+    #include <@shader_rel@.@shader_c_ext@>
     , // Path to SPIR-V used for hot reload (debug only)
     "@bin_abs@"
 };

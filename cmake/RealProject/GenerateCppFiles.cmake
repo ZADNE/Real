@@ -55,6 +55,7 @@ function(_generate_cpp_wrappers_for_shaders target)
     get_target_property(shader_sources_rel ${target} realproject_glsl_sources_rel)
     get_target_property(shader_headers_rel ${target} realproject_glsl_headers_rel)
     get_target_property(cpp_namespace ${target} realproject_shader_cxx_namespace)
+    _load_shader_naming_constants()
 
     # Prepare reusable variables
     if("${cpp_namespace}" STREQUAL "")

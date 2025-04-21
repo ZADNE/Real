@@ -24,7 +24,7 @@ function(_parse_string_constant_from_cpp cpp_code var_name)
     set("${var_name}_VAL" "${CMAKE_MATCH_1}" PARENT_SCOPE)
 endfunction()
 
-function(_parse_shader_constants)
+function(_load_shader_naming_constants)
     file(READ
         "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/engine_only_include/RealShaders/CMakeConstants.hpp"
         header_file
