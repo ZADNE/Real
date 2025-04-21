@@ -16,6 +16,7 @@ function(_add_shader_compilation_target target)
     if (NOT shader_sources_rel)
         return()
     endif()
+    _parse_shader_constants()
 
     # Determine shader compilation flags
     if(${CMAKE_BUILD_TYPE} STREQUAL "Release")
@@ -41,10 +42,10 @@ function(_add_shader_compilation_target target)
         if (${shader_ext} IN_LIST REALPROJECT_GLSL_STAGE_EXTENSIONS)
             set(shader_source_abs "${CMAKE_CURRENT_SOURCE_DIR}/${base_dir}/${shader_source_rel}")
             set(shader_out_base_abs "${CMAKE_CURRENT_BINARY_DIR}/${base_dir}/${shader_source_rel}")
-            set(shader_c_abs "${shader_out_base_abs}.spv.c")    # C representation
-            set(shader_dep_abs "${shader_out_base_abs}.d")      # Dependency file
-            set(shader_txt_abs "${shader_out_base_abs}.spv.txt")# Text disassembly
-            set(shader_bin_abs "${shader_out_base_abs}.spv.bin")# Binary representation
+            set(shader_c_abs    "${shader_out_base_abs}.${shader_c_ext}")   # C representation
+            set(shader_dep_abs  "${shader_out_base_abs}.${shader_dep_ext}") # Dependency file
+            set(shader_txt_abs  "${shader_out_base_abs}.${shader_txt_ext}") # Text disassembly
+            set(shader_bin_abs  "${shader_out_base_abs}.${shader_bin_ext}") # Binary representation
             list(APPEND shader_bins_abs ${shader_c_abs})
             set(shader_dep_abs "${CMAKE_CURRENT_BINARY_DIR}/${base_dir}/${shader_source_rel}.d")
             get_filename_component(shader_bin_dir_abs ${shader_c_abs} DIRECTORY)
@@ -74,7 +75,7 @@ function(_add_shader_compilation_target target)
     endforeach()
 
     # Add custom target which compiles the shaders
-    set(shader_target "${target}_Shaders")
+    set(shader_target "${target}${shader_target_suffix}")
     add_custom_target(${shader_target} DEPENDS ${shader_bins_abs})
     add_dependencies(${target} ${shader_target})
 endfunction()

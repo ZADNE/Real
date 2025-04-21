@@ -1,0 +1,16 @@
+/**
+ *  @author    Automatically generated file by RealProject
+ */
+#pragma once
+#include <RealEngine/program/HotRealodInfo.hpp>
+
+namespace re {
+
+constexpr HotReloadInfo k_hotReloadInfo {
+    .cmakePath       = "@cmake_command@",
+    .targetName      = "@target_name@",
+    .targetSourceDir = "@target_source_dir@",
+    .targetBinaryDir = "@target_binary_dir@"
+};
+
+} // namespace re

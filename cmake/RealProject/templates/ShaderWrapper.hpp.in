@@ -1,4 +1,6 @@
-// Automatically generated file by RealProject
+/**
+ *  @author    Automatically generated file by RealProject
+ */
 #pragma once
 #include <RealEngine/graphics/pipelines/PipelineSources.hpp>
 

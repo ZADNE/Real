@@ -18,3 +18,25 @@ function(_does_target_have_shaders target)
         set(target_has_shaders YES PARENT_SCOPE)
     endif()
 endfunction()
+
+function(_parse_string_constant_from_cpp cpp_code var_name)
+    string(REGEX MATCH "${var_name} = \"([^\"]*)\"" _ ${cpp_code})
+    set("${var_name}_VAL" "${CMAKE_MATCH_1}" PARENT_SCOPE)
+endfunction()
+
+function(_parse_shader_constants)
+    file(READ
+        "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/engine_only_include/RealShaders/CMakeConstants.hpp"
+        header_file
+    )
+    _parse_string_constant_from_cpp("${header_file}" k_shaderTargetSuffix)
+    set(shader_target_suffix ${k_shaderTargetSuffix_VAL} PARENT_SCOPE)
+    _parse_string_constant_from_cpp("${header_file}" k_shaderSPIRVCFileExt)
+    set(shader_c_ext ${k_shaderSPIRVCFileExt_VAL} PARENT_SCOPE)
+    _parse_string_constant_from_cpp("${header_file}" k_shaderDepFileExt)
+    set(shader_dep_ext ${k_shaderDepFileExt_VAL} PARENT_SCOPE)
+    _parse_string_constant_from_cpp("${header_file}" k_shaderSPIRVDisFileExt)
+    set(shader_txt_ext ${k_shaderSPIRVDisFileExt_VAL} PARENT_SCOPE)
+    _parse_string_constant_from_cpp("${header_file}" k_shaderSPIRVBinFileExt)
+    set(shader_bin_ext ${k_shaderSPIRVBinFileExt_VAL} PARENT_SCOPE)
+endfunction()

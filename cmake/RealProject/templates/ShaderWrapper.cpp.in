@@ -1,4 +1,6 @@
-// Automatically generated file by RealProject
+/**
+ *  @author    Automatically generated file by RealProject
+ */
 #include <@hpp_rel@>
 
 @cpp_namespace_start@

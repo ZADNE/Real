@@ -110,6 +110,11 @@ function(_generate_cpp_wrappers_for_shaders target)
             PUBLIC "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/include"
         )
     endif()
+    if(${target} STREQUAL "RealEngine")
+        target_include_directories(${target}
+            PRIVATE "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/engine_only_include"
+        )
+    endif()
 
     # Set include path so that the generated code can be included
     target_include_directories(${target} BEFORE
