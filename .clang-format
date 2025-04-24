@@ -105,7 +105,7 @@ IfMacros:
   - KJ_IF_MAYBE
 IncludeBlocks: Regroup
 IncludeCategories:
-  - Regex: ^<((vulkan|glm|argparse|bit7z|vma|ImGui|lodepng)\/|SDL)
+  - Regex: ^<((vulkan|glm|argparse|bit7z|vma|ImGui|lodepng|filewatch)\/|SDL)
     Priority: 20
     SortPriority: 20
     CaseSensitive: true
