@@ -4,6 +4,12 @@ project(Real)
 set(CMAKE_COMPILE_WARNING_AS_ERROR ON)
 set(CMAKE_VS_JUST_MY_CODE_DEBUGGING ON)
 
+if (GENERATOR_IS_MULTI_CONFIG)
+    message(FATAL_ERROR "Using ${CMAKE_GENERATOR} which is multi-config generator. "
+                        "Multi-config generators are not supported by RealEngine. "
+                        "Use -G CMake CLI option to select a different generator.")
+endif()
+
 if (IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/RealEngine")
     # Build RealEngine from source
     add_subdirectory("RealEngine")
