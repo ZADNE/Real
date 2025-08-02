@@ -10,7 +10,7 @@ if (GENERATOR_IS_MULTI_CONFIG)
                         "Use -G CMake CLI option to select a different generator.")
 endif()
 
-if (IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/RealEngine")
+if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/RealEngine/CMakeLists.txt")
     # Build RealEngine from source
     add_subdirectory("RealEngine")
 else()
