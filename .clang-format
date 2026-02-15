@@ -83,12 +83,11 @@ AllowShortIfStatementsOnASingleLine: Never
 AllowShortLambdasOnASingleLine: All
 AllowShortLoopsOnASingleLine: "true"
 AllowShortNamespacesOnASingleLine: false
-AlwaysBreakAfterDefinitionReturnType: None
 AlwaysBreakBeforeMultilineStrings: true
 AttributeMacros:
   - __capability
 BinPackArguments: true
-BinPackParameters: true
+BinPackParameters: BinPack
 BitFieldColonSpacing: Both
 BraceWrapping:
   AfterCaseLabel: false
@@ -112,7 +111,6 @@ BraceWrapping:
 BreakAdjacentStringLiterals: true
 BreakAfterAttributes: Never
 BreakAfterJavaFieldAnnotations: false
-BreakAfterReturnType: None
 BreakArrays: true
 BreakBeforeBinaryOperators: None
 BreakBeforeBraces: Custom
@@ -192,7 +190,7 @@ LambdaBodyIndentation: Signature
 LineEnding: DeriveCRLF
 MacroBlockBegin: ""
 MacroBlockEnd: ""
-MainIncludeChar: Quote
+MainIncludeChar: AngleBracket
 MaxEmptyLinesToKeep: "1"
 NamespaceIndentation: None
 ObjCBinPackProtocolList: Never
@@ -247,7 +245,7 @@ RawStringFormats:
     CanonicalDelimiter: pb
     BasedOnStyle: google
 ReferenceAlignment: Pointer
-ReflowComments: "true"
+ReflowComments: IndentOnly
 RemoveBracesLLVM: false
 RemoveEmptyLinesInUnwrappedLines: false
 RemoveParentheses: Leave
@@ -259,7 +257,7 @@ ShortNamespaceLines: 1
 SkipMacroDefinitionBody: false
 SortIncludes: CaseSensitive
 SortJavaStaticImport: Before
-SortUsingDeclarations: "true"
+SortUsingDeclarations: LexicographicNumeric
 SpaceAfterCStyleCast: "false"
 SpaceAfterLogicalNot: "false"
 SpaceAfterTemplateKeyword: "false"
@@ -270,7 +268,6 @@ SpaceBeforeCpp11BracedList: false
 SpaceBeforeCtorInitializerColon: "false"
 SpaceBeforeInheritanceColon: "false"
 SpaceBeforeJsonColon: false
-SpaceBeforeParens: ControlStatements
 SpaceBeforeParensOptions:
   AfterControlStatements: true
   AfterForeachMacros: true
@@ -318,10 +315,4 @@ WhitespaceSensitiveMacros:
 WrapNamespaceBodyWithEmptyLines: Leave
 AlwaysBreakAfterReturnType: None
 AlwaysBreakTemplateDeclarations: Yes
-KeepEmptyLinesAtEOF: false
-KeepEmptyLinesAtTheStartOfBlocks: "true"
 Language: Cpp
-ConstructorInitializerAllOnOneLineOrOnePerLine: "false"
-SpaceInEmptyParentheses: "false"
-SpacesInCStyleCastParentheses: "false"
-SpacesInParentheses: "false"
